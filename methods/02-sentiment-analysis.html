@@ -164,7 +164,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Machine learning perspective paper</span></a>
+ <span class="menu-text">Advancing International Business Research through Artificial Intelligence and Machine Learning Applications</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -236,7 +236,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="data" class="level2">
 <h2 class="anchored" data-anchor-id="data">Data</h2>
 <p>This is a snapshot of the data we will be working with.</p>
-<div id="49e83968" class="cell" data-execution_count="1">
+<div id="0f8e0f6e" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">'../data/jwb-articles.csv'</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> data[data[<span class="st">'Abstract'</span>].notna()] <span class="co"># Keep nonempty abstracts</span></span>
@@ -403,7 +403,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="bertsentiment" class="level2">
 <h2 class="anchored" data-anchor-id="bertsentiment">BERTsentiment</h2>
-<div id="184f9bdc" class="cell" data-execution_count="2">
+<div id="18d9ce90" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datasets <span class="im">import</span> Dataset</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Only retain the first 200 terms in the sentence</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'Abstract_200'</span>] <span class="op">=</span> data[<span class="st">'Abstract'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="st">' '</span>.join(x.split(<span class="st">' '</span>)[:<span class="dv">200</span>]))</span>
@@ -411,7 +411,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert the Pandas DataFrame to a Hugging Face Dataset</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> Dataset.from_pandas(data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="a7a63615" class="cell" data-execution_count="3">
+<div id="675459cc" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the sentiment analysis pipeline</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>nlp <span class="op">=</span> pipeline(<span class="st">'sentiment-analysis'</span>, model<span class="op">=</span><span class="st">'hw2942/bert-base-chinese-finetuning-financial-news-sentiment-v2'</span>)</span>
@@ -460,7 +460,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> dataset.<span class="bu">map</span>(get_sentiment, batched<span class="op">=</span><span class="va">True</span>, batch_size<span class="op">=</span><span class="dv">64</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Examine the first 5 sentiment scores.</p>
-<div id="0014867a" class="cell" data-execution_count="5">
+<div id="dea96eb1" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(dataset)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df.loc[:<span class="dv">5</span>, [<span class="st">'Abstract_200'</span>, <span class="st">'sentiment'</span>, <span class="st">'score'</span>, <span class="st">'final_sentiment_score'</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
