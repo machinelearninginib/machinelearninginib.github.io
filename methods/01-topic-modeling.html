@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Topic modeling – Machine Learning Perspective Paper</title>
+<title>Topic modeling – Machine learning perspective paper</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -121,7 +121,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a href="../index.html" class="navbar-brand navbar-brand-logo">
     </a>
     <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">Machine Learning Perspective Paper</span>
+    <span class="navbar-title">Machine learning perspective paper</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -164,7 +164,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Machine Learning Perspective Paper</span></a>
+ <span class="menu-text">Machine learning perspective paper</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -185,13 +185,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../methods/02-sentiment-analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Sentiment Analysis</span></a>
+ <span class="menu-text">Sentiment analysis</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../methods/03-sentence-similarity-analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Sentence Similarity Analysis</span></a>
+ <span class="menu-text">Sentence similarity analysis</span></a>
   </div>
 </li>
       </ul>
@@ -208,7 +208,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#data" id="toc-data" class="nav-link active" data-scroll-target="#data">Data</a></li>
   <li><a href="#latent-dirichlet-allocation-lda" id="toc-latent-dirichlet-allocation-lda" class="nav-link" data-scroll-target="#latent-dirichlet-allocation-lda">Latent Dirichlet Allocation (LDA)</a></li>
-  <li><a href="#dynamic-topic-modeling" id="toc-dynamic-topic-modeling" class="nav-link" data-scroll-target="#dynamic-topic-modeling">Dynamic Topic Modeling</a></li>
   <li><a href="#bertopic" id="toc-bertopic" class="nav-link" data-scroll-target="#bertopic">BERTopic</a></li>
   </ul>
 </nav>
@@ -238,7 +237,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="data" class="level2">
 <h2 class="anchored" data-anchor-id="data">Data</h2>
 <p>This is a snapshot of the data we will be working with.</p>
-<div id="a76025f3" class="cell" data-execution_count="1">
+<div id="61f6c00e" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">'../data/jwb-articles.csv'</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> data[data[<span class="st">'Abstract'</span>].notna()] <span class="co"># Keep nonempty abstracts</span></span>
@@ -406,7 +405,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="latent-dirichlet-allocation-lda" class="level2">
 <h2 class="anchored" data-anchor-id="latent-dirichlet-allocation-lda">Latent Dirichlet Allocation (LDA)</h2>
 <p>We first remove stop words and lemmatize the text.</p>
-<div id="3d0de1ee" class="cell" data-execution_count="2">
+<div id="3409c678" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> nltk</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.corpus <span class="im">import</span> stopwords</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.tokenize <span class="im">import</span> word_tokenize</span>
@@ -423,7 +422,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    docs.append(rm_stop_words)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Before we fit the LDA model, we construct a dictionary and convert our text to a bag of words.</p>
-<div id="4d2a2fe8" class="cell" data-execution_count="3">
+<div id="7a020838" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gensim</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> gensim.models.ldamodel <span class="im">import</span> LdaModel</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> gensim <span class="im">import</span> corpora</span>
@@ -436,7 +435,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 Dictionary&lt;8944 unique tokens: ['activities', 'affect', 'aims', 'also', 'argues']...&gt;</code></pre>
 </div>
 </div>
-<div id="fa1e62b0" class="cell" data-execution_count="4">
+<div id="a5654353" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>lda_doc_corpus <span class="op">=</span> [lda_dict.doc2bow(word) <span class="cf">for</span> word <span class="kw">in</span> docs]</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(lda_doc_corpus[<span class="dv">0</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -449,12 +448,12 @@ Dictionary&lt;8944 unique tokens: ['activities', 'affect', 'aims', 'also', 'argu
 <li>Alpha is a parameter that controls the prior distribution over topic weights in each document.</li>
 <li>Eta is a parameter for the prior distribution over word weights in each topic. Griffiths and Steyvers (2004) suggest a value of 50/k (where k is number of topics) for alpha and 0.1 for eta. Griffiths TL, Steyvers M (2004). “Finding Scientific Topics.” Proceedings of the National Academy of Sciences of the United States of America, 101, 5228–5235.</li>
 </ul>
-<div id="af5d0298" class="cell" data-execution_count="5">
+<div id="9aa70481" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>lda <span class="op">=</span> LdaModel(corpus<span class="op">=</span>lda_doc_corpus, id2word<span class="op">=</span>lda_dict, num_topics<span class="op">=</span><span class="dv">5</span>,</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>              random_state<span class="op">=</span><span class="dv">42</span>, passes<span class="op">=</span><span class="dv">10</span>, alpha<span class="op">=</span><span class="dv">50</span><span class="op">/</span><span class="dv">5</span>, eta<span class="op">=</span><span class="fl">0.1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We can examine the results of the LDA.</p>
-<div id="25b8ecc6" class="cell" data-execution_count="6">
+<div id="fa39c497" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>lda.show_topics()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>[(0,
@@ -470,7 +469,7 @@ Dictionary&lt;8944 unique tokens: ['activities', 'affect', 'aims', 'also', 'argu
 </div>
 </div>
 <p>And to visualise the topic probabilities for the first 15 abstracts, we can run the following code.</p>
-<div id="fe1283ed" class="cell" data-execution_count="7">
+<div id="4031efe5" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>get_document_topics <span class="op">=</span> lda.get_document_topics(lda_doc_corpus)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -511,13 +510,11 @@ Dictionary&lt;8944 unique tokens: ['activities', 'affect', 'aims', 'also', 'argu
 </div>
 </div>
 </div>
-</section>
-<section id="dynamic-topic-modeling" class="level2">
-<h2 class="anchored" data-anchor-id="dynamic-topic-modeling">Dynamic Topic Modeling</h2>
+<!-- ## Dynamic Topic Modeling -->
 </section>
 <section id="bertopic" class="level2">
 <h2 class="anchored" data-anchor-id="bertopic">BERTopic</h2>
-<div id="232db74e" class="cell" data-execution_count="8">
+<div id="dd68b545" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> bertopic <span class="im">import</span> BERTopic</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the abstracts from the 'Abstract' column</span></span>
@@ -529,7 +526,7 @@ Dictionary&lt;8944 unique tokens: ['activities', 'affect', 'aims', 'also', 'argu
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit BERTopic to your data</span></span>
 <span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>topic_model.fit(docs)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="5b2ed8fe" class="cell" data-execution_count="10">
+<div id="db61f383" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Document-topic matrix is directly available in the 'topics' variable</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>doc_topic <span class="op">=</span> topic_model.topics_</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Document-topic matrix:'</span>)</span>
@@ -540,7 +537,7 @@ Dictionary&lt;8944 unique tokens: ['activities', 'affect', 'aims', 'also', 'argu
 [-1, 30, -1, -1, 24, -1, 1, 5, -1, -1, -1, -1, -1, 5, 0, 8, -1, 5, 9, 10, 9, 3, -1, 30, -1, -1, -1, -1, 19, -1, -1, 8, 8, -1, -1, -1, -1, 9, 1, 9, 30, 5, -1, 29, 12, -1, -1, -1, 1, -1, 8, 3, 1, 17, -1, 10, 4, 10, -1, 1, 1, 18, -1, 19, -1, 11, 3, 8, 0, 18, 18, 18, 30, 17, -1, -1, 18, 2, 9, 8, 30, 9, 18, 8, -1, 0, -1, 9, 5, 5, 28, 8, -1, -1, 2, -1, 19, -1, -1, 0, 18, -1, -1, -1, -1, 23, 8, 17, 18, -1, -1, -1, 9, -1, 9, 1, 30, 5, -1, 5, 28, -1, 2, 8, -1, -1, 8, 8, 9, -1, -1, -1, 12, -1, -1, 16, 8, -1, 24, -1, 6, -1, 9, 22, 10, -1, 10, 6, 9, -1, -1, 3, -1, -1, -1, 9, -1, -1, 3, -1, 10, 0, 0, 0, 23, 0, 1, -1, 24, -1, -1, 27, 4, 3, -1, -1, 27, 24, -1, 5, 9, -1, -1, 0, 1, -1, 18, 8, -1, 1, 28, -1, 9, 13, -1, -1, -1, 5, -1, 21, 17, 1, 18, 27, 1, 8, 9, 1, -1, -1, 0, 9, 2, -1, -1, 1, -1, -1, -1, -1, 24, 14, -1, -1, 5, 23, 6, 5, 1, -1, -1, 3, -1, -1, -1, 27, 17, -1, -1, -1, -1, 1, -1, 18, -1, -1, 1, 10, 10, -1, -1, -1, -1, 10, 9, 8, 1, 17, 23, 17, 29, -1, -1, 1, 5, -1, 5, -1, -1, -1, -1, -1, 13, 19, 17, -1, -1, -1, -1, -1, 29, 30, -1, 18, 1, 10, -1, 5, 27, 3, 9, 27, -1, 10, 9, -1, -1, 0, 0, -1, -1, -1, 29, 9, -1, -1, -1, 16, 5, 16, 1, 1, 27, -1, 1, 20, 3, -1, -1, 23, 26, 27, -1, 3, 8, -1, -1, 10, 20, -1, 11, 19, 11, 11, -1, -1, -1, 3, 17, 0, 10, 0, 6, 23, 3, 5, -1, 11, 12, -1, -1, 0, -1, 5, 28, -1, -1, -1, -1, -1, 16, -1, 13, 0, -1, 8, -1, 10, 26, -1, 5, 0, 3, -1, 10, 10, 20, 11, 10, -1, 10, -1, 6, 0, 24, 26, -1, 3, 11, 26, -1, 4, 0, 0, 8, -1, -1, 8, -1, 23, -1, -1, -1, 3, -1, 13, 18, -1, -1, 19, 8, 6, 27, -1, -1, -1, 11, 10, 5, -1, -1, -1, -1, -1, -1, 6, 8, 21, -1, -1, -1, 11, 24, -1, -1, -1, -1, 30, 8, 4, 5, 5, 2, 5, 11, -1, -1, -1, -1, -1, 4, -1, -1, 30, -1, -1, 18, -1, 0, -1, 0, 20, 17, 6, 1, 17, -1, 27, 6, 3, -1, -1, 11, 25, 2, -1, 17, 16, 24, 20, -1, -1, -1, -1, -1, -1, 11, -1, 11, 11, -1, 5, 10, -1, 0, -1, -1, 24, 10, -1, -1, -1, 25, -1, -1, 24, 11, 5, -1, 0, -1, 10, -1, 18, 4, 20, 8, 18, -1, -1, -1, 2, -1, -1, 10, -1, 3, 5, 1, -1, 16, 7, 12, -1, 3, -1, 6, 27, 23, 24, 11, 16, -1, 10, -1, 8, 12, 8, 2, 8, -1, 4, 11, 8, -1, 8, 1, 16, -1, 16, -1, -1, 9, -1, 11, 0, 3, -1, -1, -1, -1, 1, 3, 1, 16, -1, -1, 13, 0, -1, 6, 1, -1, 20, 24, 24, 29, -1, -1, -1, 1, 30, -1, 0, -1, 4, 16, 20, 28, 0, 19, -1, -1, -1, 2, -1, 13, -1, -1, 13, -1, 30, 25, 0, -1, -1, 0, 2, 30, 0, 26, -1, 17, 4, -1, 11, -1, 17, 20, 10, 8, 20, -1, 3, 19, 5, -1, 20, -1, -1, 13, -1, 2, 3, -1, 0, 7, 12, 12, 12, 12, 12, 12, 12, -1, 12, 12, 12, 12, 2, 3, -1, 6, 11, -1, -1, 29, -1, 29, 29, 9, -1, 0, 29, 26, -1, 0, -1, -1, 5, 10, -1, 10, -1, 0, -1, -1, 1, -1, -1, 6, 1, 19, 0, 16, -1, -1, -1, -1, 18, 13, -1, 16, 13, 4, 18, -1, -1, 20, 13, 22, -1, 3, 7, 2, 7, 7, 2, 7, 2, 7, 12, 5, 0, 17, 3, 6, 4, 5, -1, -1, 0, 9, -1, -1, 3, -1, -1, 2, -1, 4, 6, 4, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, -1, 1, 4, 16, 4, 4, 26, 0, 11, 18, -1, -1, 23, 0, -1, -1, 3, -1, -1, -1, 7, -1, -1, 7, -1, 20, -1, -1, 1, 28, -1, 25, 7, 25, 26, -1, -1, 0, 6, 16, 3, 7, -1, 20, -1, -1, 22, -1, 30, 16, -1, 16, 26, -1, -1, 12, 6, 6, 9, -1, -1, -1, 27, 9, -1, 17, 17, -1, 1, 1, 17, -1, -1, 17, 17, -1, 17, 20, 19, 22, 6, 0, -1, 4, -1, -1, -1, 0, 9, 16, -1, 7, 8, 2, 29, -1, -1, 4, 12, 14, 0, 23, 7, -1, 6, 13, -1, 13, -1, 13, 13, 13, 13, 13, -1, -1, -1, 4, 5, 19, 1, 19, 5, -1, -1, 26, 13, -1, 12, 12, 12, 12, 12, 12, 12, -1, 12, 11, 7, 13, 22, 15, 6, 0, 2, 10, -1, -1, 0, -1, -1, -1, -1, -1, -1, 21, 4, -1, 24, 20, -1, 0, -1, 20, -1, 25, -1, -1, 26, -1, -1, -1, 19, -1, -1, 0, 19, -1, 25, 0, 20, 6, -1, 31, -1, 3, 7, -1, -1, -1, 18, -1, 4, 29, 19, -1, -1, 6, -1, -1, -1, 21, 1, 3, 1, 20, 1, 1, -1, 13, 1, -1, 23, 11, 2, 25, -1, -1, 9, 2, -1, 5, -1, 22, 28, 0, -1, 0, -1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 2, -1, -1, 25, -1, 25, -1, -1, 2, -1, 31, 11, 21, 7, -1, 7, 5, -1, 25, -1, -1, 6, 10, 22, -1, 26, -1, 21, 3, -1, -1, -1, -1, -1, 25, 2, -1, -1, -1, -1, 6, -1, -1, -1, 2, 2, 2, 2, 0, 2, -1, 23, 26, -1, -1, -1, 4, 6, 7, 23, 8, -1, -1, -1, 0, -1, 3, -1, 21, 2, 2, -1, 7, 7, 7, -1, -1, -1, 17, 7, 7, -1, 7, -1, 29, -1, 0, 16, -1, -1, -1, -1, 21, 0, -1, -1, -1, 7, -1, 7, -1, 6, 11, 31, 15, 31, 11, 31, 31, -1, -1, -1, 9, 11, 28, -1, -1, -1, -1, 0, -1, 0, -1, 2, 0, 25, 0, 28, -1, 0, -1, 0, 15, -1, 2, 29, -1, -1, 28, -1, -1, 2, -1, -1, 2, -1, 21, 13, 4, -1, 4, -1, -1, -1, -1, -1, 2, 2, -1, 7, 7, 6, 25, -1, -1, -1, -1, 9, 21, 14, 7, 22, -1, 3, 3, 3, 3, -1, 6, 19, 3, 22, -1, 4, -1, -1, -1, 22, 22, 19, 1, 1, -1, -1, -1, 31, -1, 23, 31, -1, 16, -1, -1, 22, -1, 13, 21, -1, -1, 7, 14, -1, 21, 21, -1, -1, 7, 21, -1, 22, 21, -1, 7, -1, 24, -1, -1, -1, -1, 23, -1, 16, -1, -1, -1, 4, -1, 16, 6, -1, 2, -1, 11, 21, 2, 6, 21, 23, 2, 2, 31, -1, -1, -1, -1, -1, 6, -1, 2, 7, 21, -1, 2, 6, -1, -1, 6, 28, -1, -1, -1, -1, 14, -1, -1, -1, -1, 14, -1, -1, 14, -1, 14, 13, 22, 5, -1, -1, -1, -1, 7, -1, -1, -1, 19, -1, -1, 9, -1, 15, -1, 28, 15, 13, 14, -1, 14, 8, 9, 14, 15, -1, 14, -1, 14, -1, 31, 14, 14, 9, 14, 6, -1, -1, -1, 14, 14, -1, 14, -1, 27, 14, 14, 14, 16, 14, 14, 14, 3, 15, 15, 28, 15, -1, -1, 15, 15, 15, 15, -1, -1, 15, 15, 15, 15, 15, 15, 15, -1, 15, 19, -1, 15, 15, 22, 22, 22]</code></pre>
 </div>
 </div>
-<div id="ce55ed6f" class="cell" data-execution_count="11">
+<div id="c29526b8" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get probabilities for each topic</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>probs <span class="op">=</span> topic_model.probabilities_</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Topic probabilities for the first document:'</span>)</span>
@@ -649,7 +646,7 @@ Topic probabilities for Document 15:
 </code></pre>
 </div>
 </div>
-<div id="75348546" class="cell" data-execution_count="12">
+<div id="fe557c6f" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the lists of keywords under each topic</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>topic_keywords <span class="op">=</span> topic_model.get_topics()</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -659,9 +656,10 @@ Topic probabilities for Document 15:
 <span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'Topic </span><span class="sc">{</span>topic_id<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>keywords<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We can also examine the topics more closely.</p>
-<div id="0af6dceb" class="cell" data-execution_count="13">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>freq <span class="op">=</span> topic_model.get_topic_info()</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>freq.head(<span class="dv">5</span>) <span class="co"># To see the first 5 topics</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="f67eb6e2" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># To see the first 5 topics</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>freq <span class="op">=</span> topic_model.get_topic_info()</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>freq.head(<span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <div>
 
@@ -724,6 +722,7 @@ Topic probabilities for Document 15:
 </div>
 </div>
 </div>
+<p>Note that topic <code>-1</code> indicates that the dociment has not been grouped into a topic.</p>
 
 
 </section>
