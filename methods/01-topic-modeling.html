@@ -196,7 +196,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="data" class="level2">
 <h2 class="anchored" data-anchor-id="data">Data</h2>
 <p>This is a snapshot of the data (JWB article data 1967–2025 downloaded from Scopus) we will be working with.</p>
-<div id="7ec2f197" class="cell" data-execution_count="1">
+<div id="1ed8cedc" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">'../data/jwb-articles.csv'</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> data[data[<span class="st">'Abstract'</span>].notna()] <span class="co"># Keep nonempty abstracts</span></span>
@@ -364,7 +364,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="latent-dirichlet-allocation-lda" class="level2">
 <h2 class="anchored" data-anchor-id="latent-dirichlet-allocation-lda">Latent Dirichlet Allocation (LDA)</h2>
 <p><strong>Text preprocessing</strong>: tokenize abstracts, remove punctuation and stop words, and store cleaned tokens.</p>
-<div id="6bafe696" class="cell" data-execution_count="2">
+<div id="7552ab51" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> nltk</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.corpus <span class="im">import</span> stopwords</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.tokenize <span class="im">import</span> word_tokenize</span>
@@ -381,7 +381,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    docs.append(rm_stop_words)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Before we fit the LDA model, we construct a dictionary and convert our text to a bag of words.</p>
-<div id="3f301159" class="cell" data-execution_count="3">
+<div id="1154b2e2" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gensim</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> gensim.models.ldamodel <span class="im">import</span> LdaModel</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> gensim <span class="im">import</span> corpora</span>
@@ -394,7 +394,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 Dictionary&lt;8944 unique tokens: ['activities', 'affect', 'aims', 'also', 'argues']...&gt;</code></pre>
 </div>
 </div>
-<div id="5f8ae7b7" class="cell" data-execution_count="4">
+<div id="33734098" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>lda_doc_corpus <span class="op">=</span> [lda_dict.doc2bow(word) <span class="cf">for</span> word <span class="kw">in</span> docs]</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(lda_doc_corpus[<span class="dv">0</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -402,12 +402,12 @@ Dictionary&lt;8944 unique tokens: ['activities', 'affect', 'aims', 'also', 'argu
 </div>
 </div>
 <p>Now we train a LDA model to identify latent topics in the abstracts.</p>
-<div id="2dbdee1a" class="cell" data-execution_count="5">
+<div id="cd9cb714" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>lda <span class="op">=</span> LdaModel(corpus<span class="op">=</span>lda_doc_corpus, id2word<span class="op">=</span>lda_dict, num_topics<span class="op">=</span><span class="dv">5</span>,</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>              random_state<span class="op">=</span><span class="dv">42</span>, passes<span class="op">=</span><span class="dv">40</span>, alpha<span class="op">=</span><span class="dv">10</span>, eta<span class="op">=</span><span class="fl">0.1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We can examine the results of the LDA and display the topics by listing the words associated with each topic.</p>
-<div id="e1bedba0" class="cell" data-execution_count="6">
+<div id="2ff6f713" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>lda.show_topics()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>[(0,
@@ -423,7 +423,7 @@ Dictionary&lt;8944 unique tokens: ['activities', 'affect', 'aims', 'also', 'argu
 </div>
 </div>
 <p>And to visualize the topic probabilities for the first 15 abstracts in a heatmap, we can run the following code.</p>
-<div id="67c22b61" class="cell" data-execution_count="7">
+<div id="7c74be04" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>get_document_topics <span class="op">=</span> lda.get_document_topics(lda_doc_corpus)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -469,7 +469,7 @@ Dictionary&lt;8944 unique tokens: ['activities', 'affect', 'aims', 'also', 'argu
 <section id="bertopic" class="level2">
 <h2 class="anchored" data-anchor-id="bertopic">BERTopic</h2>
 <p>We first extract the abstracts from a DataFrame and fit a BERTopic model.</p>
-<div id="eb12719b" class="cell" data-execution_count="8">
+<div id="610bb6ba" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> bertopic <span class="im">import</span> BERTopic</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>docs <span class="op">=</span> df[<span class="st">'Abstract'</span>].tolist()</span>
@@ -479,7 +479,7 @@ Dictionary&lt;8944 unique tokens: ['activities', 'affect', 'aims', 'also', 'argu
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>topic_model.fit(docs)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We can retrieve and print the document-topic matrix from the trained BERTopic model, showing which topics are associated with each document.</p>
-<div id="f5362a24" class="cell" data-execution_count="10">
+<div id="b05ae6f7" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>doc_topic <span class="op">=</span> topic_model.topics_</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Document-topic matrix:'</span>)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(doc_topic)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -489,7 +489,7 @@ Dictionary&lt;8944 unique tokens: ['activities', 'affect', 'aims', 'also', 'argu
 </div>
 </div>
 <p>We can also retrieve and print the topic probability distributions for each document, showing the likelihood of each topic being associated with the documents.</p>
-<div id="6ede6976" class="cell" data-execution_count="11">
+<div id="aa1b4d30" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get probabilities for each topic</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>probs <span class="op">=</span> topic_model.probabilities_</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Topic probabilities for the first document:'</span>)</span>
@@ -598,7 +598,7 @@ Topic probabilities for Document 15:
 </code></pre>
 </div>
 </div>
-<div id="73b60d3f" class="cell" data-execution_count="12">
+<div id="a0602ead" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the lists of keywords under each topic</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>topic_keywords <span class="op">=</span> topic_model.get_topics()</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -608,7 +608,7 @@ Topic probabilities for Document 15:
 <span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'Topic </span><span class="sc">{</span>topic_id<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>keywords<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We can also examine the topics more closely.</p>
-<div id="8fcdd620" class="cell" data-execution_count="13">
+<div id="305757c9" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># To see the first 5 topics</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>freq <span class="op">=</span> topic_model.get_topic_info()</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>freq.head(<span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
